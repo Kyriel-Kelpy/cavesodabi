@@ -1,0 +1,87 @@
+/* La Cave de Pépé — thème visuel
+   Inspiration : cave à bouteilles en bois, chaleureuse et familiale, pas un dashboard SaaS.
+
+   Palette :
+   --wood-dark   #2A1B14  bois brun très sombre — nav, en-tête, texte fort sur clair
+   --wood-mid    #6B4A34  bois moyen — bordures, éléments secondaires
+   --cream       #F4EFE3  fond principal, chaleureux, jamais blanc pur
+   --bordeaux    #7A1F2E  accent principal — actions, montants, boutons de vente
+   --copper      #B4703A  accent secondaire — bonus, notes, petits repères
+   --ink         #241A14  texte principal (jamais noir pur)
+   --leaf        #4C7A52  succès discret (stock ok, paiement soldé)
+   --amber       #C77E23  alerte stock faible
+   --clay        #9A3B2E  alerte stock critique / erreur
+*/
+
+:root {
+  --wood-dark: #2a1b14;
+  --wood-mid: #6b4a34;
+  --cream: #f4efe3;
+  --cream-deep: #ece3d1;
+  --bordeaux: #7a1f2e;
+  --bordeaux-deep: #5e1622;
+  --copper: #b4703a;
+  --ink: #241a14;
+  --ink-soft: #5a4c40;
+  --leaf: #4c7a52;
+  --amber: #c77e23;
+  --clay: #9a3b2e;
+  --line: rgba(42, 27, 20, 0.14);
+
+  --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: var(--safe-top);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--safe-top);
+  padding-bottom: var(--safe-bottom);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--wood-dark);
+  margin: 0;
+  font-weight: 600;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--copper);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
