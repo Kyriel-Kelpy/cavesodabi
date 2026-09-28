@@ -12,6 +12,11 @@ export type Product = {
 
 export type StockLevel = 'normal' | 'low' | 'critical';
 
+/** 1 L = 1000 ml. Arrondi à l'entier le plus proche : le stock est toujours en ml entiers. */
+export function litersToMl(liters: number): number {
+  return Math.round(liters * 1000);
+}
+
 /** 1 L = 1000 ml. On affiche toujours à partir des ml (jamais l'inverse). */
 export function mlToLiters(ml: number): number {
   return ml / 1000;
@@ -50,6 +55,20 @@ export function saleTotals(product: Product, quantity: number) {
 export function remainingFcfa(totalFcfa: number, paidFcfa: number): number {
   return Math.max(totalFcfa - paidFcfa, 0);
 }
+
+/**
+ * Convertit une saisie utilisateur en litres (« 25 », « 8,625 », « 8.625 ») en ml entiers.
+ * Toujours arrondi à l'entier le plus proche pour éviter les erreurs de flottants.
+ * Retourne null si la saisie n'est pas un nombre valide.
+ */
+export function parseLitersToMl(input: string): number | null {
+  const normalized = input.trim().replace(',', '.');
+  if (!normalized) return null;
+  const liters = Number(normalized);
+  if (!Number.isFinite(liters)) return null;
+  return Math.round(liters * 1000);
+}
+
 
 const DAY_NAMES_SHORT = ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'];
 
