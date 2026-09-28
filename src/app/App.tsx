@@ -1,5 +1,6 @@
 import { NavLink, Route, Routes } from 'react-router-dom';
 import { QuickSaleScreen } from '../features/quick-sale/QuickSaleScreen';
+import { HistoryScreen } from '../features/history/HistoryScreen';
 
 function ComingSoon({ title }: { title: string }) {
   return (
@@ -29,7 +30,7 @@ export function App() {
       <main className="app-content">
         <Routes>
           <Route path="/" element={<QuickSaleScreen />} />
-          <Route path="/historique" element={<ComingSoon title="Historique des ventes" />} />
+          <Route path="/historique" element={<HistoryScreen />} />
           <Route path="/credits" element={<ComingSoon title="Crédits en cours" />} />
           <Route path="/stock" element={<ComingSoon title="Stock : entrées et corrections" />} />
           <Route path="/plus" element={<ComingSoon title="Statistiques et administration" />} />
