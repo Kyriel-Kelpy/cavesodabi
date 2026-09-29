@@ -3,15 +3,7 @@ import { QuickSaleScreen } from '../features/quick-sale/QuickSaleScreen';
 import { HistoryScreen } from '../features/history/HistoryScreen';
 import { CreditsScreen } from '../features/credits/CreditsScreen';
 import { StockScreen } from '../features/stock/StockScreen';
-
-function ComingSoon({ title }: { title: string }) {
-  return (
-    <div className="coming-soon">
-      <h2>{title}</h2>
-      <p>Cet écran arrive dans une prochaine étape du projet.</p>
-    </div>
-  );
-}
+import { PlusScreen } from '../features/plus/PlusScreen';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Vente', end: true },
@@ -35,7 +27,7 @@ export function App() {
           <Route path="/historique" element={<HistoryScreen />} />
           <Route path="/credits" element={<CreditsScreen />} />
           <Route path="/stock" element={<StockScreen />} />
-          <Route path="/plus" element={<ComingSoon title="Statistiques et administration" />} />
+          <Route path="/plus" element={<PlusScreen />} />
         </Routes>
       </main>
 
@@ -65,8 +57,6 @@ export function App() {
           font-size: 1.15rem;
         }
         .app-content { flex: 1; }
-        .coming-soon { padding: 48px 24px; text-align: center; color: var(--ink-soft); }
-        .coming-soon h2 { margin-bottom: 8px; }
         .app-nav {
           position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
           display: flex; justify-content: space-around;
