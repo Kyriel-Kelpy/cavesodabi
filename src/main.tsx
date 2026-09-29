@@ -20,3 +20,11 @@ createRoot(container).render(
     </LockScreen>
   </StrictMode>,
 );
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {
+      // Pas grave si ça échoue : l'appli fonctionne quand même, juste sans installation possible.
+    });
+  });
+}
