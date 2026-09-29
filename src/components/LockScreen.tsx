@@ -4,7 +4,7 @@ import { useState, type ReactNode } from 'react';
 // ⚠️ Ce n'est PAS une vraie sécurité : n'importe qui inspectant le code du site peut la retrouver
 // et la contourner. C'est juste une porte discrète pour empêcher un passant d'ouvrir l'appli.
 // La vraie protection reste de ne pas mettre de données réelles avant l'étape 9 (connexion + RLS).
-const PASSWORD_HASH = '4360c93aef8875ca50e534047de2698bb0dd77105614a8679f0b91f70e9dca2d';
+const PASSWORD_HASH = 'c6af8140c1dba9126fa8ccafd48a4a76637a9d5ef64b1b2e2122ed16743460ae';
 const SESSION_KEY = 'cave-de-pepe:unlocked';
 
 async function sha256Hex(text: string): Promise<string> {
@@ -49,7 +49,7 @@ export function LockScreen({ children }: { children: ReactNode }) {
   return (
     <div className="lock-screen">
       <div className="lock-screen__card">
-        <span className="lock-screen__mark" aria-hidden="true" />
+        <img src="/favicon.svg" alt="" className="lock-screen__mark" />
         <h1>La Cave de Pépé</h1>
         <p>Entre le code d'accès pour continuer.</p>
 
@@ -94,8 +94,9 @@ export function LockScreen({ children }: { children: ReactNode }) {
           text-align: center; box-shadow: 0 12px 32px rgba(0,0,0,0.35);
         }
         .lock-screen__mark {
-          width: 26px; height: 30px; border-radius: 3px 3px 8px 8px; background: var(--bordeaux);
-          box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15); margin-bottom: 4px;
+          width: 44px;
+          height: 44px;
+          margin-bottom: 4px;
         }
         .lock-screen__card h1 { font-size: 1.3rem; }
         .lock-screen__card p { margin: 0 0 8px; color: var(--ink-soft); font-size: 0.9rem; }

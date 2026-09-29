@@ -18,7 +18,7 @@ export function App() {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <span className="app-header__mark" aria-hidden="true" />
+        <img src="/favicon.svg" alt="" className="app-header__mark" />
         <h1>La Cave de Pépé</h1>
         <button type="button" className="app-header__lock" onClick={lockApp} aria-label="Verrouiller">
           🔒
@@ -52,9 +52,9 @@ export function App() {
           position: sticky; top: 0; z-index: 20;
         }
         .app-header__mark {
-          width: 22px; height: 26px; border-radius: 3px 3px 8px 8px;
-          background: var(--bordeaux);
-          box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+          width: 26px;
+          height: 26px;
+          flex-shrink: 0;
         }
         .app-header h1 {
           color: var(--cream);
