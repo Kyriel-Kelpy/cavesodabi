@@ -4,6 +4,7 @@ import { HistoryScreen } from '../features/history/HistoryScreen';
 import { CreditsScreen } from '../features/credits/CreditsScreen';
 import { StockScreen } from '../features/stock/StockScreen';
 import { PlusScreen } from '../features/plus/PlusScreen';
+import { lockApp } from '../components/LockScreen';
 
 const NAV_ITEMS = [
   { to: '/', label: 'Vente', end: true },
@@ -19,6 +20,9 @@ export function App() {
       <header className="app-header">
         <span className="app-header__mark" aria-hidden="true" />
         <h1>La Cave de Pépé</h1>
+        <button type="button" className="app-header__lock" onClick={lockApp} aria-label="Verrouiller">
+          🔒
+        </button>
       </header>
 
       <main className="app-content">
@@ -55,6 +59,10 @@ export function App() {
         .app-header h1 {
           color: var(--cream);
           font-size: 1.15rem;
+          flex: 1;
+        }
+        .app-header__lock {
+          background: none; border: none; font-size: 1.1rem; cursor: pointer; opacity: 0.75; padding: 4px;
         }
         .app-content { flex: 1; }
         .app-nav {

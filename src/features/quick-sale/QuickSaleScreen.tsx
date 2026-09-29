@@ -6,7 +6,7 @@ import { useToast } from '../../components/Toast';
 import { fetchActiveProducts, fetchCurrentStockMl, fetchSettings, subscribeToStockChanges } from '../../data/catalog';
 import { createSale, SaleError, describeSaleError } from '../../data/sales';
 import { createClient, searchClients, type Client } from '../../data/clients';
-import { formatFcfa, saleTotals, stockLevel, type Product } from '../../domain/format';
+import { formatFcfa, formatLiters, saleTotals, stockLevel, type Product } from '../../domain/format';
 
 type LoadState =
   | { status: 'loading' }
@@ -133,6 +133,16 @@ export function QuickSaleScreen() {
       } else {
         toast.show('Vente enregistrée.');
       }
+
+      if (state.status === 'ready') {
+        const newLevel = stockLevel(result.stock_ml, state.thresholds);
+        if (newLevel === 'critical') {
+          toast.show(`Stock critique : ${formatLiters(result.stock_ml)} restants.`, 'error');
+        } else if (newLevel === 'low') {
+          toast.show(`Stock faible : ${formatLiters(result.stock_ml)} restants.`, 'warning');
+        }
+      }
+
       resetSalePanel();
       load();
     } catch (err) {
