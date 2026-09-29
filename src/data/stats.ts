@@ -16,6 +16,7 @@ export type PeriodStats = {
   soldMl: number;
   salesCount: number;
   bonusMl: number;
+  profitFcfa: number;
   toCollectFcfa: number;
   outstandingTotalFcfa: number;
   byProduct: ProductStat[];
@@ -27,6 +28,7 @@ type RawStats = {
   sold_ml: number;
   sales_count: number;
   bonus_ml: number;
+  profit_fcfa: number;
   to_collect_fcfa: number;
   outstanding_total_fcfa: number;
   by_product: {
@@ -48,6 +50,7 @@ export async function fetchPeriodStats(period: StatsPeriod): Promise<PeriodStats
     soldMl: raw.sold_ml,
     salesCount: raw.sales_count,
     bonusMl: raw.bonus_ml,
+    profitFcfa: raw.profit_fcfa,
     toCollectFcfa: raw.to_collect_fcfa,
     outstandingTotalFcfa: raw.outstanding_total_fcfa,
     byProduct: (raw.by_product ?? []).map((p) => ({

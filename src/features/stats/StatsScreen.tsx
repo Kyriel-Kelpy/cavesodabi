@@ -58,6 +58,10 @@ export function StatsScreen() {
               <span>Chiffre d'affaires</span>
               <strong>{formatFcfa(stats.revenueFcfa)}</strong>
             </div>
+            <div className="stat-card stat-card--profit">
+              <span>Bénéfice estimé</span>
+              <strong>{formatFcfa(stats.profitFcfa)}</strong>
+            </div>
             <div className="stat-card">
               <span>Volume vendu</span>
               <strong>{liters(stats.soldMl)} L</strong>
@@ -79,6 +83,9 @@ export function StatsScreen() {
               <strong>{formatFcfa(stats.outstandingTotalFcfa)}</strong>
             </div>
           </div>
+          <p className="stats-screen__note">
+            Le bénéfice est une estimation basée sur le coût d'achat réglé dans Administration.
+          </p>
 
           <div className="stats-by-product">
             <h2>Par produit</h2>
@@ -125,7 +132,10 @@ export function StatsScreen() {
         .stat-card--main { grid-column: 1 / -1; background: var(--wood-dark); border: none; }
         .stat-card--main span, .stat-card--main strong { color: var(--cream); }
         .stat-card--main strong { font-size: 1.6rem; }
+        .stat-card--profit { grid-column: 1 / -1; background: rgba(76, 122, 82, 0.1); border-color: var(--leaf); }
+        .stat-card--profit strong { color: var(--leaf); font-size: 1.3rem; }
         .stats-by-product h2 { font-family: var(--font-body); font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+        .stats-screen__note { font-size: 0.78rem; color: var(--ink-soft); margin: -6px 0 0; }
         .stats-by-product table { width: 100%; border-collapse: collapse; background: #fff; border-radius: var(--radius-md); overflow: hidden; }
         .stats-by-product th, .stats-by-product td { padding: 8px 10px; text-align: left; font-size: 0.88rem; border-bottom: 1px solid var(--line); }
         .stats-by-product th { color: var(--ink-soft); font-weight: 600; font-size: 0.78rem; }

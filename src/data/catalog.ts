@@ -5,12 +5,13 @@ export type Settings = {
   lowStockMl: number;
   criticalStockMl: number;
   timezone: string;
+  purchaseCostPerLiterFcfa: number;
 };
 
 export async function fetchActiveProducts(): Promise<Product[]> {
   const { data, error } = await supabase
     .from('products')
-    .select('id, name, volume_ml, price_fcfa, sort_order, is_active')
+    .select('id, name, volume_ml, price_fcfa, sort_order, is_active, price_label, alt_price_fcfa, alt_price_label')
     .eq('is_active', true)
     .order('sort_order', { ascending: true });
   if (error) throw error;
@@ -21,19 +22,23 @@ export async function fetchActiveProducts(): Promise<Product[]> {
     priceFcfa: p.price_fcfa,
     sortOrder: p.sort_order,
     isActive: p.is_active,
+    priceLabel: p.price_label,
+    altPriceFcfa: p.alt_price_fcfa,
+    altPriceLabel: p.alt_price_label,
   }));
 }
 
 export async function fetchSettings(): Promise<Settings> {
   const { data, error } = await supabase
     .from('settings')
-    .select('low_stock_ml, critical_stock_ml, timezone')
+    .select('low_stock_ml, critical_stock_ml, timezone, purchase_cost_per_liter_fcfa')
     .single();
   if (error) throw error;
   return {
     lowStockMl: data.low_stock_ml,
     criticalStockMl: data.critical_stock_ml,
     timezone: data.timezone,
+    purchaseCostPerLiterFcfa: data.purchase_cost_per_liter_fcfa,
   };
 }
 

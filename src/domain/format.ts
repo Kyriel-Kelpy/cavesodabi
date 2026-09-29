@@ -8,6 +8,11 @@ export type Product = {
   priceFcfa: number;
   sortOrder: number;
   isActive: boolean;
+  /** Libellé du prix habituel quand un second prix existe (ex. « Gros »). Sinon null. */
+  priceLabel: string | null;
+  altPriceFcfa: number | null;
+  /** Libellé du prix alternatif (ex. « Occasionnel »). Sinon null. */
+  altPriceLabel: string | null;
 };
 
 export type StockLevel = 'normal' | 'low' | 'critical';
@@ -43,10 +48,11 @@ export function stockLevel(
   return 'normal';
 }
 
-/** Total d'une vente simple (avant tout paiement partiel). */
-export function saleTotals(product: Product, quantity: number) {
+/** Total d'une vente simple (avant tout paiement partiel). unitPriceFcfa permet d'utiliser
+ *  le prix alternatif (Gros/Occasionnel) plutôt que le prix habituel du produit. */
+export function saleTotals(product: Product, quantity: number, unitPriceFcfa?: number) {
   return {
-    totalFcfa: quantity * product.priceFcfa,
+    totalFcfa: quantity * (unitPriceFcfa ?? product.priceFcfa),
     volumeMl: quantity * product.volumeMl,
   };
 }

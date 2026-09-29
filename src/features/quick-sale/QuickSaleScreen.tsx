@@ -25,6 +25,7 @@ export function QuickSaleScreen() {
 
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [useAltPrice, setUseAltPrice] = useState(false);
   const [optionsOpen, setOptionsOpen] = useState(false);
 
   const [clientQuery, setClientQuery] = useState('');
@@ -78,14 +79,16 @@ export function QuickSaleScreen() {
   const selectedProduct = products.find((p) => p.id === selectedProductId) ?? null;
   const bonusProduct = products.find((p) => p.id === bonusProductId) ?? null;
 
-  const totals = useMemo(
-    () => (selectedProduct ? saleTotals(selectedProduct, quantity) : null),
-    [selectedProduct, quantity],
-  );
+  const totals = useMemo(() => {
+    if (!selectedProduct) return null;
+    const unitPrice = useAltPrice && selectedProduct.altPriceFcfa !== null ? selectedProduct.altPriceFcfa : undefined;
+    return saleTotals(selectedProduct, quantity, unitPrice);
+  }, [selectedProduct, quantity, useAltPrice]);
 
   function resetSalePanel() {
     setSelectedProductId(null);
     setQuantity(1);
+    setUseAltPrice(false);
     setOptionsOpen(false);
     setClientQuery('');
     setClientResults([]);
@@ -99,6 +102,7 @@ export function QuickSaleScreen() {
   function pickProduct(product: Product) {
     setSelectedProductId(product.id);
     setQuantity(1);
+    setUseAltPrice(false);
   }
 
   async function resolveClientId(): Promise<string | null> {
@@ -126,6 +130,7 @@ export function QuickSaleScreen() {
         paidFcfa,
         bonusProductId: bonusQuantity > 0 ? bonusProductId : null,
         bonusQuantity,
+        useAltPrice: selectedProduct.altPriceFcfa !== null ? useAltPrice : false,
       });
 
       if (result.balance_fcfa > 0) {
@@ -203,6 +208,25 @@ export function QuickSaleScreen() {
               +
             </button>
           </div>
+
+          {selectedProduct.altPriceFcfa !== null && (
+            <div className="price-variant">
+              <button
+                type="button"
+                className={!useAltPrice ? 'active' : ''}
+                onClick={() => setUseAltPrice(false)}
+              >
+                {selectedProduct.priceLabel} · {formatFcfa(selectedProduct.priceFcfa)}
+              </button>
+              <button
+                type="button"
+                className={useAltPrice ? 'active' : ''}
+                onClick={() => setUseAltPrice(true)}
+              >
+                {selectedProduct.altPriceLabel} · {formatFcfa(selectedProduct.altPriceFcfa)}
+              </button>
+            </div>
+          )}
 
           <div className="sale-panel__totals">
             <strong>{formatFcfa(totals.totalFcfa)}</strong>
@@ -330,6 +354,12 @@ export function QuickSaleScreen() {
           background: var(--cream); font-size: 1.3rem; line-height: 1; cursor: pointer;
         }
         .sale-panel__quantity--small button { width: 30px; height: 30px; font-size: 1rem; }
+        .price-variant { display: flex; gap: 8px; }
+        .price-variant button {
+          flex: 1; padding: 10px 8px; border-radius: var(--radius-md); border: 1px solid var(--wood-mid);
+          background: var(--cream); font-weight: 600; font-size: 0.85rem; cursor: pointer; color: var(--ink-soft);
+        }
+        .price-variant button.active { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
         .sale-panel__totals { display: flex; justify-content: space-between; align-items: baseline; }
         .sale-panel__totals strong { font-family: var(--font-display); font-size: 1.6rem; color: var(--bordeaux); }
         .sale-panel__totals span { color: var(--ink-soft); }
