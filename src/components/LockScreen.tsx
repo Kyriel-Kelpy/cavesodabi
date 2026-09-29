@@ -4,7 +4,8 @@ import { useState, type ReactNode } from 'react';
 // ⚠️ Ce n'est PAS une vraie sécurité : n'importe qui inspectant le code du site peut la retrouver
 // et la contourner. C'est juste une porte discrète pour empêcher un passant d'ouvrir l'appli.
 // La vraie protection reste de ne pas mettre de données réelles avant l'étape 9 (connexion + RLS).
-const PASSWORD_HASH = 'c6af8140c1dba9126fa8ccafd48a4a76637a9d5ef64b1b2e2122ed16743460ae';
+
+const PASSWORD_HASH = '4360c93aef8875ca50e534047de2698bb0dd77105614a8679f0b91f70e9dca2d';
 const SESSION_KEY = 'cave-de-pepe:unlocked';
 
 async function sha256Hex(text: string): Promise<string> {
